@@ -3,9 +3,9 @@
 
 #include <iostream>
 
-//Ñ­»·Á´±í
+
 template<class T> class List;
-template<class T> class ListIterator;//*********¶¨ÒåÓÑÔª²»ÒªÍüÁËÇ°ÖÃÉùÃ÷
+template<class T> class ListIterator;
 
 template<class T>
 class ListNode
@@ -16,8 +16,8 @@ friend class ListIterator<T>;
 private:
 	T data;
 	ListNode *link;
-	ListNode(T element);//Ö»ÄÜÓÉÓÑÔªÀàÀ´µ÷ÓÃ //ÓÐ²ÎÊýµÄ¹¹Ôìº¯Êý
-	ListNode(){}//ÎÞ²ÎÊýµÄ¹¹Ôìº¯Êý
+	ListNode(T element);//Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ //ï¿½Ð²ï¿½ï¿½ï¿½ï¿½Ä¹ï¿½ï¿½ìº¯ï¿½ï¿½
+	ListNode(){}//ï¿½Þ²ï¿½ï¿½ï¿½ï¿½Ä¹ï¿½ï¿½ìº¯ï¿½ï¿½
 };
 
 
@@ -27,7 +27,7 @@ class List
 	friend class ListIterator<T>;
 public:
 	//List(){ first = 0;}
-	List(){ first = new ListNode<T>; first->link = first; } //*******´ø±íÍ·½á¹¹µÄ
+	List(){ first = new ListNode<T>; first->link = first; } //*******ï¿½ï¿½ï¿½ï¿½Í·ï¿½á¹¹ï¿½ï¿½
 	void Insert(T);
 	void Delete(T);
 private:
@@ -39,9 +39,9 @@ template<class T>
 class ListIterator
 {
 public:
-	ListIterator(const List<T>& L):list(L), current(L.first->link){}  //******²»ÒªÍüÁË{}
-	bool NotNull();//µ±Ç°½ÚµãÊÇ·ñ¿Õ
-	bool NextNotNull();//µ±Ç°½ÚµãµÄÏÂÒ»½ÚµãÊÇ·ñ¿Õ
+	ListIterator(const List<T>& L):list(L), current(L.first->link){}  //******ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½{}
+	bool NotNull();//ï¿½ï¿½Ç°ï¿½Úµï¿½ï¿½Ç·ï¿½ï¿½
+	bool NextNotNull();//ï¿½ï¿½Ç°ï¿½Úµï¿½ï¿½ï¿½ï¿½Ò»ï¿½Úµï¿½ï¿½Ç·ï¿½ï¿½
 	T* First();
 	T* Next();
 private:
@@ -49,9 +49,6 @@ private:
 	ListNode<T>* current;
 
 };
-
-
-
 
 template<class T>
 ListNode<T>::ListNode(T element)
@@ -61,11 +58,11 @@ ListNode<T>::ListNode(T element)
 }
 
 
-/******²åÈë£º´ÓºóÃæ******/
+/******ï¿½ï¿½ï¿½ë£ºï¿½Óºï¿½ï¿½ï¿½******/
 template<class T>
 void List<T>::Insert(T k)
 {
-	ListNode<T> *newnode = new ListNode<T>(k); //kÊÇ´æ·ÅÔÚ½ÚµãÀïµÄÊý¾Ý
+	ListNode<T> *newnode = new ListNode<T>(k); //kï¿½Ç´ï¿½ï¿½ï¿½Ú½Úµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	newnode->link = first->link;
 	first->link = newnode;
 }
@@ -74,25 +71,21 @@ void List<T>::Insert(T k)
 template<class T>
 void List<T>::Delete(T k)
 {
-	//ListNode<T> *previous = 0;//±»É¾µÄÇ°Ò»¸ö
-	ListNode<T> *previous = first;//¸Ä³Éfirst
+	
+	ListNode<T> *previous = first;
 	ListNode<T> *current;
 	for(current = first; (current!=first) && (current->data != k);)
 	{
 		previous =current;
 		current = current->link;
 	}
-	if(current != first)//ÕÒµ½ÁË
+	if(current != first)
 	{
-		/*if(previous)
-			previous->link = current->link;
-		else
-			first = first->link;*/
 		previous->link = current->link;
 		delete current;
 	}
 	else
-		std::cout << "Ã»ÓÐÕâ¸öÖµ" << std::endl;
+		std::cout << "Ã»ï¿½ï¿½ï¿½ï¿½ï¿½Öµ" << std::endl;
 
 }
 
@@ -122,7 +115,7 @@ template<class T>
 T* ListIterator<T>::First()
 {
 	if(current != list.first)
-		return &current->data;//****·µ»Ø½ÚµãÀïÊý¾Ý µÄÖ¸Õë
+		return &current->data;//****ï¿½ï¿½ï¿½Ø½Úµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ö¸ï¿½ï¿½
 	else
 		return 0;
 }

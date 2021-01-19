@@ -1,14 +1,13 @@
 #include <iostream>
 #include <list> //STL
-#include "CircleList.h" //������
+#include "CircleList.h" 
 
 using namespace std;
 
 int main()
 {
-	cout<< "����..." << endl;
 
-	cout<<"�����ҵ������͵������� "<<endl;
+	cout<<"   "<<endl;
 	List<int> intList;
 
 	intList.Insert(5);
@@ -16,7 +15,7 @@ int main()
 	intList.Insert(25);
 	intList.Insert(35);
 
-	ListIterator<int> li(intList);//����һ��ListIterator��Ķ���������intList��ʼ��
+	ListIterator<int> li(intList);
 	if(li.NotNull())
 	{
 		cout<< *li.First();
@@ -24,8 +23,6 @@ int main()
 			cout<< " -> " << *li.Next();
 		cout<< endl;
 	}
-
-	cout << "����һ��ѭ���� " << endl;
 	ListIterator<int> iter(intList);
 	cout<< *iter.First() << endl;
 	cout<< *iter.Next() << endl;
