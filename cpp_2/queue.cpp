@@ -7,24 +7,21 @@ public:
 	Queue();
 	~Queue();
 
-	bool isEmpty() const;
-	const T& getFront() const;
-	void enqueue(const T& x);
-	T dequeue();
-	void makeEmpty();
+	bool isEmpty() const;//判断队列是否为空
+	const T& getFront() const;//返回队首元素
+	void enqueue(const T& x);//插入元素到队首
+	T dequeue();//删除队列的第一个元素
+	void makeEmpty();//删除队列
 
 private:
 	struct ListNode
 	{
 		T element;
 		ListNode *next;
-
 		ListNode(const T& theElement, ListNode *n = 0):element(theElement), next(n){}
-
 	};
-
-	ListNode *front;
-	ListNode *back;
+	ListNode *front;//队首
+	ListNode *back;//队尾
 };
 
 
@@ -33,7 +30,6 @@ Queue<T>::Queue()
 {
 	front = back = 0;
 }
-
 
 template<class T>
 Queue<T>::~Queue()
@@ -48,7 +44,6 @@ void Queue<T>::makeEmpty()
 		dequeue();
 }
 
-
 template<class T>
 bool Queue<T>::isEmpty() const
 {
@@ -61,33 +56,24 @@ const T& Queue<T>::getFront() const
 {
 	if(isEmpty())
 		throw "queue is empty.";
-	return front->element;
+	return front->element;//返回队首元素
 }
 
-
 template<class T>
-void Queue<T>::enqueue(const T& x)
+void Queue<T>::enqueue(const T& x)//向队首插入元素
 {
 	if(isEmpty())
 		back = front = new ListNode(x);
 	else
-		//1.
-		//back->next = new ListNode(x);
-		//back = back->next;
-
-		//2. 
 		back = back->next = new ListNode(x);
 }
 
-
 template<class T>
-T Queue<T>::dequeue()
+T Queue<T>::dequeue()//删除队首元素
 {
 	T frontItem = getFront();
-
 	ListNode *old = front;
 	front = front->next;
-
 	delete old; 
 	return frontItem;
 }

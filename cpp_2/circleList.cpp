@@ -10,19 +10,18 @@ class cirleListNode
     friend class cirleListIterator<T>;
 private:
     T data;
-    cirleListNode *link;
-    cirleListNode(T element);
-    cirleListNode(){}
+    cirleListNode *link;//指向下一个节点
+    cirleListNode(T element);//复制构造函数
+    cirleListNode(){}//默认构造函数
 };
 template<typename T>
 class cirleList
 {
     friend class cirleListIterator<T>;
 public:
-   // cirleList():First(new cirleListNode<T>),First(First->link){}
-   cirleList(){First = new cirleListNode<T>;First->link=First;}
-    void Insert(T);
-    void Delete(T);
+    cirleList(){First = new cirleListNode<T>;First ->link=First;} //初始化
+    void Insert(T);//插入函数
+    void Delete(T);//删除函数
 private:
     cirleListNode<T> *First;
 };
@@ -30,11 +29,11 @@ template<typename T>
 class cirleListIterator
 {
     public:
-        cirleListIterator(const cirleList<T>& L):list(L),current(L.First->link){}
-        bool NotNull();
-        bool NextNotnull();
-        T* first();
-        T* Next();
+        cirleListIterator(const cirleList<T>& L):list(L),current(L.First->link){}//循环列表迭代器
+        bool NotNull();//判断当前节点是否为空
+        bool NextNotnull();//判断下一个节点是否为空
+        T* first();//输出列表首位的节点
+        T* Next();//
     private:
         const cirleList<T>& list;
         cirleListNode<T>* current;
@@ -55,17 +54,17 @@ void cirleList<T>::Insert(T k)
 template<typename T>
 void cirleList<T>::Delete(T k)
 {
-    cirleListNode<T> * Previous = First;
+    cirleListNode<T> * Previous = First; //新建两个节点，保存Current的前一个数据
     cirleListNode<T> *current;
     for(current = First;(current != First)&&(current->data != k);)
     {
         Previous = current;
         current = current->link;
     }
-    if(current != First)
+    if(current != First)//循环结束，判断当前节点是否为头节点
     {
-        Previous ->link = current ->link;
-        delete current;
+        Previous ->link = current ->link;//当前节点的前一个节点的下一个节点指向当前节点的下一个节点
+        delete current;//删除当前节点
     }
 }
 template<typename T>
@@ -104,7 +103,7 @@ int main()
     a.Insert(1);
     a.Insert(2);
     a.Insert(3);
-
+    //测试数据
     cirleListIterator<int> iter(a);
     cout<< *iter.first() << endl;
 	cout<< *iter.Next() << endl;
