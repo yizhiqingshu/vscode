@@ -4,7 +4,6 @@
 #include <queue>
 #include <pthread.h>
 #include <csignal>
-#include <windows.h>
 #include <iostream>
 
 using namespace std;
