@@ -153,8 +153,6 @@ int main()
 	cout<< m.Insert(k) << endl;
 	cout<< m.Insert(l) << endl;
 	m.display();
-
-
 	BstNode<int> *p = m.Search(f);
 	 cout<< "find: " << p->getdata().key << endl;
 }
