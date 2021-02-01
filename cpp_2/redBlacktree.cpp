@@ -11,7 +11,7 @@ public:
    explicit Gref(const T &x):point(&x){}
    const T &get()const
    {
-      if(isNull()) throw "error";//NullPointerException();
+      if(isNull()) throw NullPointerException();
       else return *point;
    }
    bool isNull()const
@@ -25,7 +25,7 @@ class DSException
 {
 public:
     DSException(const std::string & msg = " "):message(msg){}
-    virtual  ~DSException();
+    virtual  ~DSException(){};
     virtual std::string TOstring()const 
     {
         return  "Exception"+std::string(": ")+what();
