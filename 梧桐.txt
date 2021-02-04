@@ -52,4 +52,18 @@ date:2021/2/3
 2、随机数
 3、class 友元
 4、日志记录程序
+
+date:2021/2/4
+1、char      1
+   short     2
+   int       4
+   double    8
+   float     4
+   long      8  32位电脑long占4个字节与int一样
+   指针      8
+   32位电脑指针 4个字节
+   
+
+
+
 >>>>>>> centos7
