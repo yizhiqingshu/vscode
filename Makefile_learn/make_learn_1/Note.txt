@@ -1,0 +1,34 @@
+$@ 所有的目标文件
+$^ 所有的依赖文件
+%.c %.o 任意的.c .o 文件 *.c *.o 所有的.c .o 文件
+目标文件:依赖文件
+    gcc 依赖文件 -o 目标文件
+
+make_1:make_1.o
+	gcc make_1.o -o make_1
+make_1.o:make_1.S
+	gcc -c make_1.S -o make_1.o
+make_1.S:make_1.i
+	gcc -S make_1.i -o make_1.S
+make_1.i:make_1.c
+	gcc -E make_1.c -o make_1.i
+#伪目标
+.PHONY:
+clearall:
+	rm -rf make_1.o make_1.S make_1.i make_1
+clear:
+	rm -rf make_1.o make_1.S make_1.i 
+万能版本
+
+TAR=make_1
+OBJ = make_1.o
+CC := gcc
+#$@ 所有的目标文件
+#$^ 所有的依赖文件
+$(TAR):$(OBJ)
+	$(CC) $^ -o $@
+%.o:%.c
+	$(CC) -c make_1.c -o make_1.o
+.PHONY:
+clear: 
+	rm -rf $(OBJ)
