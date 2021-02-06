@@ -1,0 +1,148 @@
+根目录 cd /
+/bin binary 二进制文件，可执行文件，shell 命令
+/dev device,在linux下 一切皆文件
+/bin：存放二进制可执行文件
+/boot：存放开机启动程序
+/dev：存放设备文件： 字符设备、块设备
+/home：存放普通用户
+/etc：用户信息和系统配置文件 passwd、group
+/lib：库文件：libc.so.6
+/root：管理员宿主目录（家目录）
+/usr：用户资源管理目录
+
+shell基本操作
+遍历历史记录 :ctrl+p 向上 ctrl+n向下
+删除光标前面字符 :backspace,ctrl+h
+删除光标后面字符 :ctrl+d 
+删除前面的字符串: ctrl+u
+删除后面的字符串: ctrl+k
+移动光标: 向前 ctrl+b 向后 ctrl+f
+移动到最前面: ctrl+a 移动到最后面:ctrl+e
+
+cd - 在相邻的两个目录之间切换
+pwd 显示当前目录的路径
+
+mkdir -p 路径 创建多级目录
+
+touch 创建文件（当文件不存在时）
+      更新文件的时间
+
+rmdir 只可以删除一个空目录
+
+rm -r 目录名 可以删除目录 -r是以递归的方式处理
+rm -ri 增加删除提示
+rm -i 
+
+cp 要复制的文件 目标文件 如果目标不存在 将新建一个
+cp file1 file2 file1的内容会覆盖file2的内容 file为文件 非目录
+cp file1 目录 file1会复制进目录里面
+cp -r dir1(存在) dir2(存在) 两个目录 将dir1 目录复制进入 dir2   dir2目录包含dir1目录
+cp -r dir1(存在) dir2(不存在) dir1 中的目录下的内容 复制进dir2 并创建dir2 dir2目录不包含dir1
+
+mv 改名或者移动文件
+mv file1 file2 
+mv file(文件存在) file1(不存在) file与file1都为文件 给文件改名
+mv dir(目录) dir1(不存在) 给目录改名
+    移动
+    mv file dir 将file 移动到dir中
+    mv dir dir1 两个目录都存在 直接将dir移动到dir1中
+    mv file1 file2 两个都存在 覆盖 file1覆盖file2的内容 file1将不存在
+
+cat 查看文件内容
+    cat filename 将文件内容打印到终端
+more: more filename 查看全部文件内容 enter键按行查看 空格键快速查看 只能向下查看 q退出
+less: less filename 向下一行 回车 ctrl+n 向上ctrl+p 翻页:向下翻页空格 pagedown 向上pageup q退出
+head:查看文件头部 前十行默认 head -n filename n为要查看的行数
+tail: 与head同理 查看文件尾部
+
+文件链接
+软硬链接 ln 
+软链接 ln -s 绝对路径 快捷方式的名字 创建快捷方式 文件和目录操作同理
+硬链接
+相当于给文件起别名
+ln 文件名(绝对路径相对路径都可) 硬链接名字 
+创建一个新文件，硬链接计数为1
+给文件创建了硬链接：2
+删除一个硬链接：1
+再删除硬链接计数的方式
+使用场景：磁盘上有一个文件 /home/chuan/workspace/Makefile
+          在其他多个目录中管理Makefile，并能实时同步
+chmod 文字设定法
+chmod who[+|-|=]mode filename
+who: u->user 文件所属者 g-> 文件所属用户组 o-> 其他人 a 所有人
+mode：r w x -没有任何权限
+chmod u-rx filename 用户减去读和执行权限
+chmod u+r，g-x filename 用户加上读权限，用户组取消执行权限
+chmod 数字设定法
+chmod 777 filename 
+chmod -777 filename 减去所有人的权限
+mode: r -> 4 w -> 2 x -> 1 - -> 0 八进制的数
+0756 7代表文件所有者 5 代表 文件所有用户组 6代表其他人
+
+修改文件所有者和文件所有组
+chown 新的所有者 文件名 
+chown 新的所有者:新的所有组 文件名
+
+修改文件所有组 
+chgrp 
+chgrp 新的组 文件名
+
+find 需要查找的目录 -name "filename"
+*代表所有文件
+find 查找目录 -type 文件类型
+普通文件：f
+目录：d
+符号链接：l
+管道：p
+套接字：s
+字符设备：c
+块设备：b
+按照文件大小查找
+find 查找目录 -size + N
++ 大于 - 小于
+N 
+单位 k 小写 M大写
+大于10k 小于100k :find . -size +10k -size +100k
+按日期查找:
+    创建日期:-ctime -n/+n
+        -n:n天以内 +n:n天以外
+        find -ctime -1 一天以内创建的文件
+    修改日期:-mtime -n/+n
+    访问日期:-atime -n/+n
+按深度查找
+    -maxdepth n层数 n层以下的目录
+    -mindepth n     n层以上的目录(包含n)
+find 搜索路径 参数 搜索的内容
+grep 搜索内容 参数 搜素的路径 
+find ./ -type d -exec ls -l {} \;
+find ./ -type d -ok ls -l {} \; 比较安全
+find ./ -type d | xargs ls -l(shell命令)
+ls -l 
+
+grep -r (有目录) "查找的内容" 搜索的路径
+grep -r "helloworld" /home -n -n的显示查找到的字符串在第几行
+
+压缩文件
+linux常用压缩格式
+.gz --gzip
+.bz2 --bzip2
+常用压缩命令
+tar 打包工具  
+    参数 c 创建压缩文件
+         x 释放压缩文件
+         v 打印压缩信息
+         f 指定压缩包名字
+         z 使用gzip压缩文件 .tar.gz
+         j 使用bzip2压缩文件 .tar.bz2
+    tar 参数 压缩包名字 原材料 --gz
+    tar zcvf test.tar.gz filename dirname
+    tar 参数 压缩包名字 参数 解压路径
+    tar zxvf test.tar.gz -C 解压目录
+
+rar a 压缩包名 压缩内容 压缩目录 -r
+rar x 压缩包名 解压目录
+
+zip 参数 压缩包名 原材料
+如果有目录 -r
+unzip 压缩包的名字 -d 解压目录
+
