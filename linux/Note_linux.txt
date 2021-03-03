@@ -165,3 +165,26 @@ data：2021/2/20
                 export LD_LIBRARY_PAHT = 动态库路径
                 ./a.out 
 
+环境变量：
+Linux中set 、env 和 export 都可以查看环境变量。
+set<命令显示当前shell的变量，包括当前用户的变量，set主要用来设置sh的参数与选项
+env命令显示当前用户的变量，env用来在构建的环境中运行命令
+export命令显示当前导出成用户变量的shell变量
+
+1、控制台中设置 (只对当前shell有效)
+    执行 export PATH=$PATH:/tmp/test 命令：
+2、修改当前家目录下的 .bashrc 文件 (只对当前用户有效)
+    先执行 vim ~/.bashrc 命令，在最末尾加入下面内容，然后 source ~/.bashrc，使配置文件生效。
+    export PATH=$PATH:/tmp/test
+3、修改/etc/bashrc 文件 (针对所有用户有效)
+    先执行 sudo vim /etc/profile 命令，在最末尾加入下面内容，然后 source /etc/profile，使配置文件生效。
+    export PATH=$PATH:/tmp/test
+    注：source命令通常用于重新执行刚修改的初始化文件，使之立即生效，而不必注销并重新登录。
+
+进程：
+fork()函数返回两次，父子进程互相并发。
+fork函数之后的代码执行两次 一次是子进程执行，一次是父进程执行。执行顺序没有先后
+int execve(const char *path, char *const argv[], char *const envp[])
+execve() 函数用于执行参数 path 字符串所代表的文件路径（必须指定路径），执行该文件时会传入一个数组作
+为执行该文件时传递过去的参数 argv[0]、argv[1] ⋯argv[n] ，除此之外该函数还会为新程序复制最
+后一个参数所指示的环境变量（envp）。
